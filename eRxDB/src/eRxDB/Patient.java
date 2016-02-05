@@ -2,6 +2,8 @@ package eRxDB;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,6 +22,9 @@ public class Patient implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
+	@Column(unique=true, length=100, nullable=false)
+	private String uniqueId;
+	
 	@Column(nullable=false, length=45)
 	private String name;
 
@@ -64,5 +69,46 @@ public class Patient implements Serializable {
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
 	}
+	
+	@Column(nullable = false)
+	private Date created;
+
+	@Column(nullable = false)
+	private Date updated;
+
+	@PrePersist
+	protected void onCreate() {
+		created = updated = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		updated = new Date();
+	}
+
+	public String getUniqueId() {
+		return uniqueId;
+	}
+
+	public void setUniqueId(String uniqueId) {
+		this.uniqueId = uniqueId;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
+
 
 }

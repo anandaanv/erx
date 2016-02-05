@@ -24,6 +24,7 @@ public class ERxCreateOrderInput extends ERxProcessorInput {
 	private String sessionId;
 	private List<Diagnosys> diagnosys = new ArrayList<>();
 	private List<PrescriptionRow> prescriptions = new ArrayList<>();
+	private String certPassword;
 	
 	
 	public Doctor getDoctor() {
@@ -55,6 +56,12 @@ public class ERxCreateOrderInput extends ERxProcessorInput {
 	}
 	public void setPrescriptions(List<PrescriptionRow> prescriptions) {
 		this.prescriptions = prescriptions;
+	}
+	public String getCertPassword() {
+		return certPassword;
+	}
+	public void setCertPassword(String certPassword) {
+		this.certPassword = certPassword;
 	}
 	
 	

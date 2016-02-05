@@ -1,7 +1,21 @@
 package eRxDB;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 
 
 /**
@@ -32,7 +46,9 @@ public class Prescription implements Serializable {
 
 	private int orderstatus;
 
-	private int patientid;
+	@OneToOne(fetch = FetchType.LAZY, targetEntity=Patient.class)
+	@JoinColumn(name="id", updatable=true)
+	private Patient patientid;
 
 	@Column(length=45)
 	private String patientname;
@@ -44,6 +60,9 @@ public class Prescription implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="doctorid")
 	private Doctor doctor;
+	
+	@Column(length=10000)
+	private byte[] prescriptionDoc;
 
 	public Prescription() {
 	}
@@ -96,11 +115,11 @@ public class Prescription implements Serializable {
 		this.orderstatus = orderstatus;
 	}
 
-	public int getPatientid() {
+	public Patient getPatientid() {
 		return this.patientid;
 	}
 
-	public void setPatientid(int patientid) {
+	public void setPatientid(Patient patientid) {
 		this.patientid = patientid;
 	}
 
@@ -127,5 +146,30 @@ public class Prescription implements Serializable {
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
 	}
+	
+	@Column(nullable = false)
+	private Date created;
+
+	@Column(nullable = false)
+	private Date updated;
+
+	@PrePersist
+	protected void onCreate() {
+		created = updated = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		updated = new Date();
+	}
+
+	public byte[] getPrescriptionDoc() {
+		return prescriptionDoc;
+	}
+
+	public void setPrescriptionDoc(byte[] prescriptionDoc) {
+		this.prescriptionDoc = prescriptionDoc;
+	}
+
 
 }

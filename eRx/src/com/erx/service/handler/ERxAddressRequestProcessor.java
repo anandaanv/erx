@@ -25,7 +25,7 @@ public class ERxAddressRequestProcessor extends BaseERxOrderProcessor<ERxCreateO
 		Prescription ps = ERxHelper.findOrder(input.getOrderId());
 		//send SMS to request the address
 		Patient p = new Patient();
-		p.setId(ps.getPatientid());
+//		p.setId(ps.getPatientid().getUniqueId());
 		p.setName(ps.getPatientname());
 		p.setPhoneNumber(ps.getPhonenumber());
 		

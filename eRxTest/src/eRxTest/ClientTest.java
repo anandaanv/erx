@@ -26,14 +26,15 @@ public class ClientTest {
 	@Test
 	public void test() {
 //		createPr("Mayur", "8149707832");
-//		createPr("Arati", "9823041332");
-		createPr("Gaurish", "9890820441");
+//		createPr("Arati", "9823041332", "0000000001");
+//		createPr("Gaurish", "9890820441", "0000000004");
+//		createPr("Kushal", "8983328793", "0000000003");
 	}
 
-	private void createPr(String name, String phoneNumber) {
+	private void createPr(String name, String phoneNumber, String patientId) {
 		SessionManager mgr = new SessionManagerImpl(); 
 		Patient p = new Patient();
-		p.setId(1);
+		p.setId(patientId);
 //		p.setName("Anand");
 //		p.setPhoneNumber("7722078812");
 		p.setName(name);
@@ -57,7 +58,7 @@ public class ClientTest {
 	public void testAkshay() {
 		SessionManager mgr = new SessionManagerImpl(); 
 		Patient p = new Patient();
-		p.setId(1);
+		p.setId("0000000002");
 		p.setName("Akshay");
 		p.setPhoneNumber("9922996630");
 		Session session = mgr.createSession(p);
@@ -71,6 +72,7 @@ public class ClientTest {
 		session.addPrescription(meds.get(2), Collections.singleton(Dose.BEFORE_SLEEPING), 30);
 		ERxCreateOrderOutput op = (ERxCreateOrderOutput) mgr.prepareSession(session);
 		session.setPrescriptionId(op.getId());
+		session.setCertPassword("anandpass");
 		mgr.completeSession(session);
 	}
 

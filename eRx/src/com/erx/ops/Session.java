@@ -30,5 +30,8 @@ public interface Session {
 	void setPrescriptionId(int prescriptionId);
 
 	int getPrescriptionId();
+	
+	String getCertPassword();
+	void setCertPassword(String pwd);
 
 }

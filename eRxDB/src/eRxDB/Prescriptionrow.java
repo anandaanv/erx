@@ -1,6 +1,8 @@
 package eRxDB;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 
@@ -25,12 +27,18 @@ public class Prescriptionrow implements Serializable {
 	@Column(nullable=false)
 	private int medicineid;
 
-	@Column(nullable=false, length=45)
+	@Column(nullable=false, length=120)
 	private String medicinename;
 
 	@Column(nullable=false)
 	private int numunits;
 
+	@Column(nullable = false)
+	private Date created;
+
+	@Column(nullable = false)
+	private Date updated;
+	
 	public Prescriptionrow() {
 	}
 
@@ -73,5 +81,16 @@ public class Prescriptionrow implements Serializable {
 	public void setNumunits(int numunits) {
 		this.numunits = numunits;
 	}
+	
+	@PrePersist
+	protected void onCreate() {
+		created = updated = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		updated = new Date();
+	}
+
 
 }

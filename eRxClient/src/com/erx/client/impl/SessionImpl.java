@@ -145,4 +145,16 @@ public class SessionImpl implements Session {
 		}
 		return Collections.unmodifiableList(medList);
 	}
+
+	private String certPassword;
+	
+	@Override
+	public String getCertPassword() {
+		return certPassword;
+	}
+
+	
+	public void setCertPassword(String certPassword) {
+		this.certPassword = certPassword;
+	}
 }

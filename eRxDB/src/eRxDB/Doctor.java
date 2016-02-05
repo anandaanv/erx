@@ -2,6 +2,9 @@ package eRxDB;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,7 +26,7 @@ public class Doctor implements Serializable {
 	@Column(length=45)
 	private String name;
 
-	@Column(length=45)
+	@Column(length=100)
 	private String qualification;
 
 	@Column(length=45)
@@ -31,11 +34,20 @@ public class Doctor implements Serializable {
 
 	@Column(nullable=false, length=45)
 	private String username;
+	
+	@Column(nullable=false, length=300)
+	private String encryptedPassword;
 
 	//bi-directional many-to-one association to Prescription
 	@OneToMany(mappedBy="doctor")
 	private List<Prescription> prescriptions;
 
+	@Column(nullable = false)
+	private Date created;
+
+	@Column(nullable = false)
+	private Date updated;
+	
 	public Doctor() {
 	}
 
@@ -80,25 +92,35 @@ public class Doctor implements Serializable {
 	}
 
 	public List<Prescription> getPrescriptions() {
-		return this.prescriptions;
+		return Collections.unmodifiableList(this.prescriptions);
 	}
 
-	public void setPrescriptions(List<Prescription> prescriptions) {
-		this.prescriptions = prescriptions;
+	public String getEncryptedPassword() {
+		return encryptedPassword;
 	}
 
-	public Prescription addPrescription(Prescription prescription) {
-		getPrescriptions().add(prescription);
-		prescription.setDoctor(this);
-
-		return prescription;
+	public void setEncryptedPassword(String encryptedPassword) {
+		this.encryptedPassword = encryptedPassword;
 	}
 
-	public Prescription removePrescription(Prescription prescription) {
-		getPrescriptions().remove(prescription);
-		prescription.setDoctor(null);
-
-		return prescription;
+	public Date getCreated() {
+		return created;
 	}
 
+	public Date getUpdated() {
+		return updated;
+	}
+
+	@PrePersist
+	protected void onCreate() {
+		created = updated = new Date();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		updated = new Date();
+	}
+
+	
+	
 }

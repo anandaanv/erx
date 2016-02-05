@@ -18,6 +18,7 @@ public class ERxGatewayImpl implements ERxGateway{
 		input.setPatient(s.getPatient());
 		input.setPrescriptions(s.getPrescriptions());
 		input.setSessionId(s.getId());
+		input.setCertPassword(s.getCertPassword());
 		return ERXRequestProcessorFactory.getRequestprocessor(input).processOrder();
 	}
 

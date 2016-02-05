@@ -2,6 +2,8 @@ package eRxDB;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import java.util.Date;
 import java.util.List;
 
 
@@ -53,6 +55,12 @@ public class Address implements Serializable {
 	@Column(length=45)
 	private String zipcode;
 
+	@Column(nullable = false)
+	private Date created;
+
+	@Column(nullable = false)
+	private Date updated;
+	
 	//bi-directional many-to-many association to Patient
 	@ManyToMany
 	@JoinTable(

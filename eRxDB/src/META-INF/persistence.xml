@@ -3,12 +3,14 @@
 <persistence-unit name="eRxDB" transaction-type="RESOURCE_LOCAL">
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>eRxDB.Address</class>
+		<class>eRxDB.Brand</class>
+		<class>eRxDB.Certificate</class>
 		<class>eRxDB.Doctor</class>
+		<class>eRxDB.Medicine</class>
+		<class>eRxDB.MedicineDiagnosys</class>
 		<class>eRxDB.Patient</class>
 		<class>eRxDB.Prescription</class>
 		<class>eRxDB.Prescriptionrow</class>
-		<class>eRxDB.Brand</class>
-		<class>eRxDB.Medicine</class>
 		<!-->
 		<class>eRxDB.Medicinecontent</class>
 		<class>eRxDB.Molecule</class>
@@ -19,11 +21,11 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/erxdb"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
 			<property name="javax.persistence.jdbc.password" value="admin"/>
-	<!-- 
+	<!--   
 			<property name="javax.persistence.schema-generation.database.action" value="create"/>
       <property name="javax.persistence.schema-generation.scripts.action" value="create"/>
       <property name="javax.persistence.schema-generation.scripts.create-target" value="sampleCreate.ddl"/>
-     -->  
+    --> 
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -37,8 +37,6 @@ public class ERxCreateOrderProcessor extends BaseERxOrderProcessor<ERxCreateOrde
 		}
 		Prescription ps = new Prescription();
 		ps.setDiagnosys(input.getDiagnosys().toString());
-		Doctor doc = new Doctor();
-		doc.setId(input.getDoctor().getId());
 		Doctor res = PersistenceWrapper.getEntitymanager().find(Doctor.class, input.getDoctor().getId());
 		ps.setDoctor(res);
 		ps.setDoctorname(res.getName());
@@ -55,24 +53,23 @@ public class ERxCreateOrderProcessor extends BaseERxOrderProcessor<ERxCreateOrde
 		return op;
 	}
 
-	private int getPatient() {
+	private Patient getPatient() {
 
 		Patient p = null;
 		
-		String hql = "Select p.id from Patient p where p.phonenumber=:num";      
+		String hql = "Select p from Patient p where p.uniqueId=:id";      
 		System.out.println(hql);
 		Query query = PersistenceWrapper.getEntitymanager().createQuery(hql);
-		query.setParameter("num", input.getPatient().getPhoneNumber());
-		List<Integer> result = query.getResultList();
+		query.setParameter("id", input.getPatient().getId());
+		List<Patient> result = query.getResultList();
 
-		//		Patient p = PersistenceWrapper.getEntitymanager().find(Patient.class, input.getPatient().getId());
 		if(result.isEmpty()){
 			p = new Patient();
-//			p.setId(input.getPatient().getId());
+			p.setUniqueId(input.getPatient().getId());
 			p.setName(input.getPatient().getName());
 			p.setPhonenumber(input.getPatient().getPhoneNumber());
 			PersistenceWrapper.getEntitymanager().persist(p);
-			return p.getId();
+			return p;
 		}
 
 		return result.get(0);
