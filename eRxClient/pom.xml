@@ -18,7 +18,7 @@
   </build>
   <dependencies>
   	<dependency>
-  		<groupId>eRx</groupId>
+  		<groupId>erx</groupId>
   		<artifactId>main</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
