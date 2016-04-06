@@ -2,7 +2,9 @@ package eRxDB;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -63,6 +66,29 @@ public class Prescription implements Serializable {
 	
 	@Column(length=10000)
 	private byte[] prescriptionDoc;
+	
+	@Column(updatable=false)
+	private int patientOrderId;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name="prescription")
+	private List<Prescriptionrow> medicines;
+	
+	public List<Prescriptionrow> getMedicines() {
+		return medicines;
+	}
+
+	public void setMedicines(List<Prescriptionrow> medicines) {
+		this.medicines = medicines;
+	}
+
+	public int getPatientOrderId() {
+		return patientOrderId;
+	}
+
+	public void setPatientOrderId(int patientOrderId) {
+		this.patientOrderId = patientOrderId;
+	}
 
 	public Prescription() {
 	}

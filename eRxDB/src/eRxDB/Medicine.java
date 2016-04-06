@@ -21,7 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="medicine")
-@NamedQuery(name="Medicine.findAll", query="SELECT m FROM Medicine m")
+@NamedQuery(name="Medicine.findAllByString", query="SELECT m FROM Medicine m where m.proprietaryName like :name order by m.proprietaryName desc")
 public class Medicine implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
