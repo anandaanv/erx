@@ -17,6 +17,8 @@ import com.erx.ops.Session;
 
 public class SessionImpl implements Session {
 	private static class Coverage implements Comparable<Coverage>{
+		Medicine med;
+		int count;
 		@Override
 		public int hashCode() {
 			final int prime = 31;
@@ -40,8 +42,6 @@ public class SessionImpl implements Session {
 				return false;
 			return true;
 		}
-		Medicine med;
-		int count;
 		@Override
 		public int compareTo(Coverage o) {
 			return Integer.valueOf(count).compareTo(Integer.valueOf(o.count));
@@ -54,7 +54,14 @@ public class SessionImpl implements Session {
 	private List<PrescriptionRow> prescriptions = new ArrayList<>();
 	private Patient patient;
 	private int prescriptionId;
+	private String certPassword;
 	
+	public SessionImpl(String id, Patient patient) {
+		super();
+		this.id = id;					// session id
+		this.patient = patient;			// contains patient id, name, ph. no
+	}
+
 	@Override
 	public int getPrescriptionId() {
 		return prescriptionId;
@@ -65,11 +72,6 @@ public class SessionImpl implements Session {
 		this.prescriptionId = prescriptionId;
 	}
 
-	public SessionImpl(String id, Patient patient) {
-		super();
-		this.id = id;					// session id
-		this.patient = patient;			// contains patient id, name, ph. no
-	}
 
 	@Override
 	public String getId() {
@@ -143,17 +145,16 @@ public class SessionImpl implements Session {
 		for (Coverage coverage : coverageList) {
 			medList.add(coverage.med);
 		}
-		return Collections.unmodifiableList(medList);
+		return medList;
 	}
 
-	private String certPassword;
 	
 	@Override
 	public String getCertPassword() {
 		return certPassword;
 	}
 
-	
+	@Override
 	public void setCertPassword(String certPassword) {
 		this.certPassword = certPassword;
 	}
