@@ -22,7 +22,7 @@ public enum MedicineCache {
 	MedicineCache(){
 		EntityManager entitymanager = PersistenceWrapper.getEntitymanager();
 		entitymanager.getTransaction().begin();
-		Query query = entitymanager.createNamedQuery("Medicine.findAll");
+		Query query = entitymanager.createQuery("select m from Medicine m");
 		List<eRxDB.Medicine> meds = query.getResultList();
 		for (eRxDB.Medicine medicine : meds) {
 			if(medicine.getBrand() == null){

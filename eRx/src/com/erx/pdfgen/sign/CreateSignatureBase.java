@@ -21,8 +21,10 @@ import java.io.InputStream;
 import java.security.GeneralSecurityException;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
+import java.security.cert.CertificateEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.SignatureInterface;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.cert.X509CertificateHolder;
@@ -80,9 +82,6 @@ public abstract class CreateSignatureBase implements SignatureInterface
      *
      * This method will be called from inside of the pdfbox and create the PKCS #7 signature.
      * The given InputStream contains the bytes that are given by the byte range.
-     *
-     * This method is for internal use only. <-- TODO this method should be private
-     *
      * Use your favorite cryptographic library to implement PKCS #7 signature creation.
      */
     @Override
@@ -90,39 +89,33 @@ public abstract class CreateSignatureBase implements SignatureInterface
     {
         try
         {
-            List<Certificate> certList = new ArrayList<Certificate>();
+            List<Certificate> certList = new ArrayList<>();
             certList.add(certificate);
             Store certs = new JcaCertStore(certList);
-            CMSSignedDataGenerator gen = new CMSSignedDataGenerator();
-            org.bouncycastle.asn1.x509.Certificate cert = org.bouncycastle.asn1.x509.Certificate.getInstance(ASN1Primitive.fromByteArray(certificate.getEncoded()));
-            ContentSigner sha1Signer = new JcaContentSignerBuilder("SHA256WithRSA").build(privateKey);
-            gen.addSignerInfoGenerator(new JcaSignerInfoGeneratorBuilder(new JcaDigestCalculatorProviderBuilder().build())
-            		.build(sha1Signer, new X509CertificateHolder(cert.getEncoded())));
-            gen.addCertificates(certs);
+            CMSSignedDataGenerator gen = getDataGenerator(certs);
             CMSProcessableInputStream msg = new CMSProcessableInputStream(content);
             CMSSignedData signedData = gen.generate(msg, false);
-            if (tsaClient != null)
-            {
+            if (tsaClient != null){
                 signedData = signTimeStamps(signedData);
             }
             return signedData.getEncoded();
         }
-        catch (GeneralSecurityException e)
+        catch (GeneralSecurityException|CMSException|TSPException|OperatorCreationException e)
         {
             throw new IOException(e);
         }
-        catch (CMSException e)
-        {
-            throw new IOException(e);
-        }
-        catch (TSPException e)
-        {
-            throw new IOException(e);
-        }
-        catch (OperatorCreationException e)
-        {
-            throw new IOException(e);
-        }
+        
     }
+
+	private CMSSignedDataGenerator getDataGenerator(Store certs)
+			throws IOException, CertificateEncodingException, OperatorCreationException, CMSException {
+		CMSSignedDataGenerator gen = new CMSSignedDataGenerator();
+		org.bouncycastle.asn1.x509.Certificate cert = org.bouncycastle.asn1.x509.Certificate.getInstance(ASN1Primitive.fromByteArray(certificate.getEncoded()));
+		ContentSigner sha1Signer = new JcaContentSignerBuilder("SHA256WithRSA").build(privateKey);
+		gen.addSignerInfoGenerator(new JcaSignerInfoGeneratorBuilder(new JcaDigestCalculatorProviderBuilder().build())
+				.build(sha1Signer, new X509CertificateHolder(cert.getEncoded())));
+		gen.addCertificates(certs);
+		return gen;
+	}
 
 }

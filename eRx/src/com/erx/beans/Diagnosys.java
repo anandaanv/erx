@@ -10,7 +10,7 @@ public class Diagnosys extends BaseBean {
 
 	@Override
 	public String toString() {
-		return "Diagnosys [name=" + name + ", id=" + id + "]";
+		return name;
 	}
 
 	public String getName() {

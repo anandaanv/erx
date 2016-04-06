@@ -59,7 +59,7 @@ public class PDFGeneratorPDFBox extends PrescriptionGeneratorPDF {
 
 
 		contentStream.close();
-		String name = UUID.randomUUID().toString();
+		String name = getTempDir() + UUID.randomUUID().toString();
 		doc.save(name);
 		try {
 			byte[] signArray = signDoc(name, input);
@@ -68,8 +68,13 @@ public class PDFGeneratorPDFBox extends PrescriptionGeneratorPDF {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
-			//		new File(name).delete();
+			new File(name).delete();
 		}
+		return null;
+	}
+
+	private String getTempDir() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
