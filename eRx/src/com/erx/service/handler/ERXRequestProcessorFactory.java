@@ -8,6 +8,9 @@ import com.erx.service.input.ERxCreateOrderInput;
 import eRxDB.Prescription;
 
 public class ERXRequestProcessorFactory {
+	
+	private ERXRequestProcessorFactory(){}
+	
 	public static ERxOrderProcessor getRequestprocessor(ERxProcessorInput ip){
 		if(ip.getOrderId() == 0){
 			return new ERxCreateOrderProcessor((ERxCreateOrderInput) ip);

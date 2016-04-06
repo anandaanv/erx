@@ -6,6 +6,7 @@ import com.erx.ops.Session;
 import com.erx.service.handler.ERXRequestProcessorFactory;
 import com.erx.service.ifc.ERxProcessorOutput;
 import com.erx.service.input.ERxCreateOrderInput;
+import com.erx.service.input.ERxPossibleMedicinesOutput;
 
 public class ERxGatewayImpl implements ERxGateway{
 
@@ -37,6 +38,14 @@ public class ERxGatewayImpl implements ERxGateway{
 	@Override
 	public ERxProcessorOutput prepareSession(Doctor d, Session s) {
 		return preparePrescription(d, s);
+	}
+	
+	@Override
+	public ERxPossibleMedicinesOutput getPossibleMedicines(Doctor d, Session s){
+		ERxFetchMedicinesAction action = new ERxFetchMedicinesAction(s, d);
+		ERxPossibleMedicinesOutput res = new ERxPossibleMedicinesOutput();
+		res.setMedicines(action.process());
+		return res;
 	}
 
 }

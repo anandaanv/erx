@@ -1,20 +1,26 @@
 package com.erx.service.handler;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import com.erx.pdfgen.PDFGeneratorPDFBox;
 import com.erx.pdfgen.PrescriptionGeneratorPDF;
 import com.erx.service.BaseERxOrderProcessor;
+import com.erx.service.handler.sms.ERxSMSGateway;
 import com.erx.service.ifc.OrderStatus;
 import com.erx.service.input.ERxCreateOrderInput;
 import com.erx.service.input.ERxCreateOrderOutput;
 
+import eRxDB.Medicine;
+import eRxDB.MedicineDiagnosys;
 import eRxDB.Prescription;
+import eRxDB.Prescriptionrow;
 import eRxDB.persistence.PersistenceWrapper;
 
 public class ERxOrderConfirmationProcessor extends BaseERxOrderProcessor<ERxCreateOrderInput, ERxCreateOrderOutput> {
@@ -26,7 +32,6 @@ public class ERxOrderConfirmationProcessor extends BaseERxOrderProcessor<ERxCrea
 
 	@Override
 	public ERxCreateOrderOutput processOrder() {
-		//TODO update order status to orderstatus.confirmed.
 		EntityManager em = PersistenceWrapper.getEntitymanager();
 		Prescription ps = ERxHelper.findOrder(input.getOrderId());
 		ps.setOrderstatus(OrderStatus.CONFIRMED.ordinal());
@@ -45,8 +50,33 @@ public class ERxOrderConfirmationProcessor extends BaseERxOrderProcessor<ERxCrea
 			em.getTransaction().begin();
 			PersistenceWrapper.save(ps);
 			em.getTransaction().commit();
+			
+			//update medicine cache
+			em.getTransaction().begin();
+			List<Prescriptionrow> pRows = ps.getMedicines();
+			List<MedicineDiagnosys> diagnosysList = new ArrayList<>();
+			for (Prescriptionrow prescriptionrow : pRows) {
+				Query query = PersistenceWrapper.getEntitymanager().createNamedQuery("MedicineDiagnosys.findByKey", MedicineDiagnosys.class);
+				MedicineDiagnosys res;
+				try{
+					query.setParameter("doc", ps.getDoctor());
+					query.setParameter("med", prescriptionrow.getMedicineid());
+					query.setParameter("dyn", ps.getDiagnosys());
+					res = (MedicineDiagnosys) query.getSingleResult();
+					res.setUpdated(new Date());
+					em.persist(res);
+				}catch(NoResultException e){
+					res = new MedicineDiagnosys();
+					res.setDiagnosys(ps.getDiagnosys());
+					Medicine transientMedicine = em.find(Medicine.class, prescriptionrow.getMedicineid());
+					res.setMedicine(transientMedicine);
+					res.setDoctor(ps.getDoctor());
+					em.persist(res);
+				}
+			}
+			em.getTransaction().commit();
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		ERXRequestProcessorFactory.getRequestprocessor(input).processOrder();
