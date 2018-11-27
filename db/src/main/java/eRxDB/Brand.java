@@ -13,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 /**
@@ -22,6 +25,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="brand")
 @NamedQuery(name="Brand.findAll", query="SELECT b FROM Brand b")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Brand implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -37,33 +43,6 @@ public class Brand implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name="brand")
 	private List<Medicine> medicines;
-
-	public Brand() {
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<Medicine> getMedicines() {
-		return this.medicines;
-	}
-
-	public void setMedicines(List<Medicine> medicines) {
-		this.medicines = medicines;
-	}
 
 	public Medicine addMedicine(Medicine medicine) {
 		getMedicines().add(medicine);

@@ -61,7 +61,7 @@ public class RegisterNewDoctor {
 			throw new UserNotFoundException(doctor.getUser().getUserId(), e);
 		}
 		eRxDB.Certificate cert = new eRxDB.Certificate();
-		cert.setKey(ERxHelper.encrypt(cer.getUser().getUserId()));
+		cert.setCertKey(ERxHelper.encrypt(cer.getUser().getUserId()));
 		cert.setSignImage(cer.getSignImage());
 		cert.setValue(cer.getCertificate());
 		

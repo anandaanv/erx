@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 /**
@@ -24,6 +27,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="doctor")
 @NamedQuery(name="Doctor.findAll", query="SELECT d FROM Doctor d")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Doctor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -53,61 +59,6 @@ public class Doctor implements Serializable {
 
 	@Column(nullable = false)
 	private Date updated;
-	
-	public Doctor() {
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getQualification() {
-		return this.qualification;
-	}
-
-	public void setQualification(String qualification) {
-		this.qualification = qualification;
-	}
-
-	public String getRegno() {
-		return this.regno;
-	}
-
-	public void setRegno(String regno) {
-		this.regno = regno;
-	}
-
-	public String getUsername() {
-		return this.username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public List<Prescription> getPrescriptions() {
-		return Collections.unmodifiableList(this.prescriptions);
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public Date getUpdated() {
-		return updated;
-	}
 
 	@PrePersist
 	protected void onCreate() {

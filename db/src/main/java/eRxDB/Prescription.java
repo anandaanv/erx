@@ -19,6 +19,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 /**
@@ -28,6 +31,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="prescription")
 @NamedQuery(name="Prescription.findAll", query="SELECT p FROM Prescription p")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Prescription implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -73,106 +79,7 @@ public class Prescription implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name="prescription")
 	private List<Prescriptionrow> medicines;
-	
-	public List<Prescriptionrow> getMedicines() {
-		return medicines;
-	}
 
-	public void setMedicines(List<Prescriptionrow> medicines) {
-		this.medicines = medicines;
-	}
-
-	public int getPatientOrderId() {
-		return patientOrderId;
-	}
-
-	public void setPatientOrderId(int patientOrderId) {
-		this.patientOrderId = patientOrderId;
-	}
-
-	public Prescription() {
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getAddressid() {
-		return this.addressid;
-	}
-
-	public void setAddressid(int addressid) {
-		this.addressid = addressid;
-	}
-
-	public String getDiagnosys() {
-		return this.diagnosys;
-	}
-
-	public void setDiagnosys(String diagnosys) {
-		this.diagnosys = diagnosys;
-	}
-
-	public String getDoctorname() {
-		return this.doctorname;
-	}
-
-	public void setDoctorname(String doctorname) {
-		this.doctorname = doctorname;
-	}
-
-	public String getExternaltxnid() {
-		return this.externaltxnid;
-	}
-
-	public void setExternaltxnid(String externaltxnid) {
-		this.externaltxnid = externaltxnid;
-	}
-
-	public int getOrderstatus() {
-		return this.orderstatus;
-	}
-
-	public void setOrderstatus(int orderstatus) {
-		this.orderstatus = orderstatus;
-	}
-
-	public Patient getPatientid() {
-		return this.patientid;
-	}
-
-	public void setPatientid(Patient patientid) {
-		this.patientid = patientid;
-	}
-
-	public String getPatientname() {
-		return this.patientname;
-	}
-
-	public void setPatientname(String patientname) {
-		this.patientname = patientname;
-	}
-
-	public String getPhonenumber() {
-		return this.phonenumber;
-	}
-
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-
-	public Doctor getDoctor() {
-		return this.doctor;
-	}
-
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
-	}
-	
 	@Column(nullable = false)
 	private Date created;
 
@@ -188,14 +95,5 @@ public class Prescription implements Serializable {
 	protected void onUpdate() {
 		updated = new Date();
 	}
-
-	public byte[] getPrescriptionDoc() {
-		return prescriptionDoc;
-	}
-
-	public void setPrescriptionDoc(byte[] prescriptionDoc) {
-		this.prescriptionDoc = prescriptionDoc;
-	}
-
 
 }
