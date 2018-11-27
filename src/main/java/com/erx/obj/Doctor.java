@@ -1,7 +1,16 @@
 package com.erx.obj;
 
 import com.erx.beans.BaseBean;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
+
+@Getter
+@Setter
+@RequiredArgsConstructor
+@Builder
 public class Doctor extends BaseBean {
 	private String name;
 	private String qualification;
@@ -17,24 +26,5 @@ public class Doctor extends BaseBean {
 		this.registrationNumber = registrationNumber;
 		this.user = user;
 	}
-
-	public String getName() {
-		return name;
-	}
-	public String getQualification() {
-		return qualification;
-	}
-	public String getRegistrationNumber() {
-		return registrationNumber;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public int getId() {
-		return id;
-	}
-	
 	
 }
