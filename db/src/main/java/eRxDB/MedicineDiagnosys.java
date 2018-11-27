@@ -15,6 +15,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Entity implementation class for Entity: MedicineDiagnosys
@@ -23,40 +26,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "medicinediadnosys")
 @NamedQuery(name = "MedicineDiagnosys.findByKey", query = "SELECT m FROM MedicineDiagnosys m where m.doctor=:doc and m.medicine.id = :med and m.diagnosys=:dyn")
+@Getter
+@Setter
+@NoArgsConstructor
 public class MedicineDiagnosys implements Serializable {
-	
-	public String getDiagnosys() {
-		return diagnosys;
-	}
 
-	public void setDiagnosys(String diagnosys) {
-		this.diagnosys = diagnosys;
-	}
-
-	public Doctor getDoctor() {
-		return doctor;
-	}
-
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
-	}
-
-	public Medicine getMedicine() {
-		return medicine;
-	}
-
-	public void setMedicine(Medicine medicine) {
-		this.medicine = medicine;
-	}
-
-	public static String FINDBYDOCDIAGN = "SELECT m FROM MedicineDiagnosys m where m.doctor=:doc and m.diagnosys=:dyn";
-
-	private static final long serialVersionUID = 1L;
-
-	public MedicineDiagnosys() {
-		super();
-	}
-
+	public static final String FINDBYDOCDIAGN = "";
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)

@@ -14,6 +14,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 /**
@@ -23,6 +26,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="patient")
 @NamedQuery(name="Patient.findAll", query="SELECT p FROM Patient p")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Patient implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -47,41 +53,6 @@ public class Patient implements Serializable {
 	@Column(updatable=true)
 	private int numPrescriptions;
 
-	public Patient() {
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPhonenumber() {
-		return this.phonenumber;
-	}
-
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-
-	public List<Address> getAddresses() {
-		return this.addresses;
-	}
-
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
-	
 	@Column(nullable = false)
 	private Date created;
 
@@ -97,30 +68,5 @@ public class Patient implements Serializable {
 	protected void onUpdate() {
 		updated = new Date();
 	}
-
-	public String getUniqueId() {
-		return uniqueId;
-	}
-
-	public void setUniqueId(String uniqueId) {
-		this.uniqueId = uniqueId;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
-	public Date getUpdated() {
-		return updated;
-	}
-
-	public void setUpdated(Date updated) {
-		this.updated = updated;
-	}
-
 
 }

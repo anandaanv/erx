@@ -17,6 +17,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 /**
@@ -26,6 +29,9 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="prescriptionrow")
 @NamedQuery(name="Prescriptionrow.findAll", query="SELECT p FROM Prescriptionrow p")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Prescriptionrow implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -55,66 +61,7 @@ public class Prescriptionrow implements Serializable {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="prescription", referencedColumnName="id")
 	private Prescription prescription;
-	
-	public Prescription getPrescription() {
-		return prescription;
-	}
 
-	public void setPrescription(Prescription prescription) {
-		this.prescription = prescription;
-	}
-
-	public Date getCreated() {
-		return created;
-	}
-
-	public Date getUpdated() {
-		return updated;
-	}
-
-	public Prescriptionrow() {
-	}
-
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getDoses() {
-		return this.doses;
-	}
-
-	public void setDoses(String doses) {
-		this.doses = doses;
-	}
-
-	public int getMedicineid() {
-		return this.medicineid;
-	}
-
-	public void setMedicineid(int medicineid) {
-		this.medicineid = medicineid;
-	}
-
-	public String getMedicinename() {
-		return this.medicinename;
-	}
-
-	public void setMedicinename(String medicinename) {
-		this.medicinename = medicinename;
-	}
-
-	public int getNumunits() {
-		return this.numunits;
-	}
-
-	public void setNumunits(int numunits) {
-		this.numunits = numunits;
-	}
-	
 	@PrePersist
 	protected void onCreate() {
 		created = updated = new Date();

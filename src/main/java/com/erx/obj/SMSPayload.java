@@ -1,23 +1,17 @@
 package com.erx.obj;
 
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@RequiredArgsConstructor
+@Builder
 public class SMSPayload {
 	String payload;
 	String source;
-	
-	
-	public String getPayload() {
-		return payload;
-	}
-	public void setPayload(String payload) {
-		this.payload = payload;
-	}
-	public String getSource() {
-		return source;
-	}
-	public void setSource(String source) {
-		this.source = source;
-	}
-	
-	
 	
 }

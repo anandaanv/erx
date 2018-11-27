@@ -8,12 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="role")
 @NamedQueries(value={
 		@NamedQuery(name="Role.FindByName", query="select u from Role u where u.roleName=:roleName")
 })
+@Getter
+@Setter
+@NoArgsConstructor
 public class Role {
 
 	@Id
@@ -23,13 +29,4 @@ public class Role {
 	
 	@Column
 	private String roleName;
-
-	public String getRoleName() {
-		return roleName;
-	}
-
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-	
 }
