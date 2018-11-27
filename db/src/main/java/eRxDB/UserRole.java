@@ -11,12 +11,18 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="userrole")
 @NamedQueries(value={
 		@NamedQuery(name="UserRole.FindByUserRole", query="select u from UserRole u where u.user=:user and u.role=:role")
 })
+@Getter
+@Setter
+@NoArgsConstructor
 public class UserRole {
 
 	@Id
@@ -37,43 +43,4 @@ public class UserRole {
 
 	@Column
 	private int refId;
-	
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public int getRefId() {
-		return refId;
-	}
-
-	public void setRefId(int refId) {
-		this.refId = refId;
-	}
-
-	public int getId() {
-		return id;
-	}
-	
-	
-	
 }

@@ -50,23 +50,8 @@ public enum MedicineCache {
 	}
 	
 	public Medicine adaptMedicine(eRxDB.Medicine med){
-		Medicine m = new Medicine(med.getId(), med.getProprietaryName(), new Brand(med.getBrand()), MedicineType.OTHER, getDosage(med.getDosage_form()));
+		Medicine m = new Medicine(med.getId(), med.getProprietaryName(), new Brand(med.getBrand().getName()), med.getDosage_form());
 		return m;
-		
-	}
-
-	private List<Dose> getDosage(String dosage) {
-		List<Dose> doseList = new ArrayList<>();
-		String[] doses = dosage.replace("[", "").replace("]", "").split(",");
-		for (String d : doses) {
-			//FIXME
-			try{
-				doseList.add(Dose.valueOf(d));
-			}catch (Exception e){
-				doseList.add(Dose.AFTER_BREAKFAST);
-			}
-		}
-		return doseList;
 		
 	}
 
