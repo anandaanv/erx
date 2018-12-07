@@ -1,4 +1,4 @@
-package eRxDB.persistence;
+package erxdb.persistence;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 public class PersistenceWrapper extends Persistence {
 
 	private static EntityManagerFactory emfactory = Persistence.
-			createEntityManagerFactory( "eRxDB" );
+			createEntityManagerFactory("erxdb");
 	private static EntityManager entitymanager = emfactory.
 			createEntityManager( );
 	

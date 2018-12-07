@@ -17,11 +17,11 @@ import com.erx.service.ifc.OrderStatus;
 import com.erx.service.input.ERxCreateOrderInput;
 import com.erx.service.input.ERxCreateOrderOutput;
 
-import eRxDB.Medicine;
-import eRxDB.MedicineDiagnosys;
-import eRxDB.Prescription;
-import eRxDB.Prescriptionrow;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.Medicine;
+import erxdb.MedicineDiagnosys;
+import erxdb.Prescription;
+import erxdb.Prescriptionrow;
+import erxdb.persistence.PersistenceWrapper;
 
 public class ERxOrderConfirmationProcessor extends BaseERxOrderProcessor<ERxCreateOrderInput, ERxCreateOrderOutput> {
 

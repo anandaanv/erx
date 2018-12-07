@@ -25,9 +25,9 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.erx.obj.PrescriptionRow;
 
-import eRxDB.Certificate;
-import eRxDB.Doctor;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.Certificate;
+import erxdb.Doctor;
+import erxdb.persistence.PersistenceWrapper;
 
 public class PDFGeneratorPDFBox extends PrescriptionGeneratorPDF {
 

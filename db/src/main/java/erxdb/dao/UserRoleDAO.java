@@ -1,11 +1,11 @@
-package eRxDB.dao;
+package erxdb.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import eRxDB.UserRole;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.UserRole;
+import erxdb.persistence.PersistenceWrapper;
 
 public enum UserRoleDAO {
 	
@@ -20,7 +20,7 @@ public enum UserRoleDAO {
 		return (UserRole) q.getSingleResult();
 	}
 
-	public void saveUserRole(eRxDB.UserRole u) {
+	public void saveUserRole(erxdb.UserRole u) {
 		em.persist(u);
 	}
 	

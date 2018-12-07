@@ -9,10 +9,10 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import eRxDB.Certificate;
-import eRxDB.Doctor;
-import eRxDB.Prescription;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.Certificate;
+import erxdb.Doctor;
+import erxdb.Prescription;
+import erxdb.persistence.PersistenceWrapper;
 
 public class ERxHelper {
 	

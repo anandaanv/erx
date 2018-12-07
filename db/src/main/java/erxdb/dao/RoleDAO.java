@@ -1,11 +1,11 @@
-package eRxDB.dao;
+package erxdb.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import eRxDB.Role;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.Role;
+import erxdb.persistence.PersistenceWrapper;
 
 public enum RoleDAO {
 	

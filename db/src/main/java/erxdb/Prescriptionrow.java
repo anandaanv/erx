@@ -1,17 +1,17 @@
-package eRxDB;
+package erxdb;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -21,16 +21,16 @@ import lombok.Setter;
 
 
 /**
- * The persistent class for the doctor database table.
+ * The persistent class for the prescriptionrow database table.
  * 
  */
 @Entity
-@Table(name="doctor")
-@NamedQuery(name="Doctor.findAll", query="SELECT d FROM Doctor d")
+@Table(name="prescriptionrow")
+@NamedQuery(name="Prescriptionrow.findAll", query="SELECT p FROM Prescriptionrow p")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Doctor implements Serializable {
+public class Prescriptionrow implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -38,27 +38,27 @@ public class Doctor implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int id;
 
-	@Column(length=100)
-	private String name;
+	@Column(nullable=false, length=150)
+	private String doses;
 
-	@Column(length=100)
-	private String qualification;
+	@Column(nullable=false)
+	private int medicineid;
 
-	@Column(length=45)
-	private String regno;
+	@Column(nullable=false, length=120)
+	private String medicinename;
 
-	@Column(nullable=false, length=45)
-	private String username;
-
-	//bi-directional many-to-one association to Prescription
-	@OneToMany(mappedBy="doctor")
-	private List<Prescription> prescriptions;
+	@Column(nullable=false)
+	private int numunits;
 
 	@Column(nullable = false)
 	private Date created;
 
 	@Column(nullable = false)
 	private Date updated;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="prescription", referencedColumnName="id")
+	private Prescription prescription;
 
 	@PrePersist
 	protected void onCreate() {
@@ -70,6 +70,5 @@ public class Doctor implements Serializable {
 		updated = new Date();
 	}
 
-	
-	
+
 }

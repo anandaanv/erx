@@ -5,7 +5,7 @@ import com.erx.service.ifc.ERxProcessorInput;
 import com.erx.service.ifc.OrderStatus;
 import com.erx.service.input.ERxCreateOrderInput;
 
-import eRxDB.Prescription;
+import erxdb.Prescription;
 
 public class ERXRequestProcessorFactory {
 	

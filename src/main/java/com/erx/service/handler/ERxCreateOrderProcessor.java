@@ -12,11 +12,11 @@ import javax.persistence.Query;
 import com.erx.obj.PrescriptionRow;
 import com.erx.service.ifc.OrderStatus;
 
-import eRxDB.Doctor;
-import eRxDB.Patient;
-import eRxDB.Prescription;
-import eRxDB.Prescriptionrow;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.Doctor;
+import erxdb.Patient;
+import erxdb.Prescription;
+import erxdb.Prescriptionrow;
+import erxdb.persistence.PersistenceWrapper;
 
 public class ERxCreateOrderProcessor extends BaseERxOrderProcessor<ERxCreateOrderInput, ERxCreateOrderOutput> {
 	

@@ -1,9 +1,9 @@
-package eRxDB.dao;
+package erxdb.dao;
 
 import javax.persistence.EntityManager;
 
-import eRxDB.Certificate;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.Certificate;
+import erxdb.persistence.PersistenceWrapper;
 
 public enum CertificateDAO {
 	

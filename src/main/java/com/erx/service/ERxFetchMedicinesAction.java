@@ -11,8 +11,8 @@ import com.erx.beans.Medicine;
 import com.erx.obj.Doctor;
 import com.erx.ops.Session;
 
-import eRxDB.MedicineDiagnosys;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.MedicineDiagnosys;
+import erxdb.persistence.PersistenceWrapper;
 
 public class ERxFetchMedicinesAction {
 	
@@ -27,7 +27,7 @@ public class ERxFetchMedicinesAction {
 	
 	List<Medicine> process(){
 
-		List<eRxDB.Medicine> possibleMeds = new ArrayList<>();
+		List<erxdb.Medicine> possibleMeds = new ArrayList<>();
 		String name = null;
 		if(!s.getPossibleMedicines().isEmpty()){
 			name = s.getPossibleMedicines().get(0).getProprietaryName();
@@ -35,13 +35,13 @@ public class ERxFetchMedicinesAction {
 		List<Medicine> meds = new ArrayList<>();
 		EntityManager em = PersistenceWrapper.getEntitymanager();
 		Query q = em.createQuery(MedicineDiagnosys.FINDBYDOCDIAGN, MedicineDiagnosys.class);
-		eRxDB.Doctor doc = em.find(eRxDB.Doctor.class, doctor.getId());
+		erxdb.Doctor doc = em.find(erxdb.Doctor.class, doctor.getId());
 		q.setParameter("doc", doc);
 		q.setParameter("dyn", s.getDiagnosys().toString());
 		try{
 			List<MedicineDiagnosys> res = q.getResultList();
 			for (MedicineDiagnosys dn : res) {
-				eRxDB.Medicine m = dn.getMedicine();
+				erxdb.Medicine m = dn.getMedicine();
 				if(name == null || name.isEmpty() || m.getProprietaryName().contains(name)){
 					possibleMeds.add(m);
 				}
@@ -51,15 +51,15 @@ public class ERxFetchMedicinesAction {
 		}catch(NoResultException e){
 			e.printStackTrace();
 		}
-		Query medicinesByName = em.createNamedQuery("Medicine.findAllByString", eRxDB.Medicine.class);
+		Query medicinesByName = em.createNamedQuery("Medicine.findAllByString", erxdb.Medicine.class);
 		medicinesByName.setParameter("name", "%" + name +"%");
 		try{
-			List<eRxDB.Medicine> res = medicinesByName.getResultList();
+			List<erxdb.Medicine> res = medicinesByName.getResultList();
 			possibleMeds.addAll(res);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		for (eRxDB.Medicine m : possibleMeds) {
+		for (erxdb.Medicine m : possibleMeds) {
 			if(m == null){
 				meds.add(new Medicine());
 			}
@@ -69,7 +69,7 @@ public class ERxFetchMedicinesAction {
 	
 	}
 	
-	private Medicine adaptMedicine(eRxDB.Medicine m) {
+	private Medicine adaptMedicine(erxdb.Medicine m) {
 		Medicine med = new Medicine();
 		med.setProprietaryName(m.getProprietaryName());
 		med.setId(m.getId());

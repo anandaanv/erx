@@ -10,16 +10,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Diagnosys extends BaseBean {
+	long id;
 	private String name;
 
 	public Diagnosys(int id, String name) {
-		super(id);
 		this.name = name;
-	}
-
-	@Override
-	public String toString() {
-		return name;
 	}
 
 }

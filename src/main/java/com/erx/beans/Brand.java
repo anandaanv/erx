@@ -1,6 +1,7 @@
 package com.erx.beans;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
+@Builder
 public class Brand extends BaseBean{
+	long id;
 	private String brandName;
 
     @Override

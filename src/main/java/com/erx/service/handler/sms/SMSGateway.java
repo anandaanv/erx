@@ -8,8 +8,8 @@ import com.erx.obj.Address;
 import com.erx.obj.Patient;
 import com.erx.obj.SMSPayload;
 
-import eRxDB.Prescription;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.Prescription;
+import erxdb.persistence.PersistenceWrapper;
 
 public abstract class SMSGateway {
 
@@ -42,14 +42,14 @@ public abstract class SMSGateway {
 	public void receiveAddress(SMSPayload payload) {
 		Prescription ps = findOrder(payload);
 		Address addr = extractAddress(payload);
-		eRxDB.Address adr = adaptAddress(addr);
+		erxdb.Address adr = adaptAddress(addr);
 		PersistenceWrapper.save(adr);
 		int addressId = adr.getId();
 		ps.setAddressid(addressId);
 	}
 
-	private eRxDB.Address adaptAddress(Address addr) {
-		eRxDB.Address adr = new eRxDB.Address();
+	private erxdb.Address adaptAddress(Address addr) {
+		erxdb.Address adr = new erxdb.Address();
 		adr.setAddress1(addr.getAddress1());
 		adr.setAddress2(addr.getAddress1());
 		adr.setAddress3(addr.getAddress1());

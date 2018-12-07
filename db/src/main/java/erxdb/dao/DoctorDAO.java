@@ -1,11 +1,11 @@
-package eRxDB.dao;
+package erxdb.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
-import eRxDB.Doctor;
-import eRxDB.UserRole;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.Doctor;
+import erxdb.UserRole;
+import erxdb.persistence.PersistenceWrapper;
 
 public enum DoctorDAO {
 	

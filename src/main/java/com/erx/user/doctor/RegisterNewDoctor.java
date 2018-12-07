@@ -7,14 +7,14 @@ import com.erx.ex.UserNotFoundException;
 import com.erx.obj.Certificate;
 import com.erx.obj.Doctor;
 
-import eRxDB.User;
-import eRxDB.UserRole;
-import eRxDB.dao.CertificateDAO;
-import eRxDB.dao.DoctorDAO;
-import eRxDB.dao.RoleDAO;
-import eRxDB.dao.UserDAO;
-import eRxDB.dao.UserRoleDAO;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.User;
+import erxdb.UserRole;
+import erxdb.dao.CertificateDAO;
+import erxdb.dao.DoctorDAO;
+import erxdb.dao.RoleDAO;
+import erxdb.dao.UserDAO;
+import erxdb.dao.UserRoleDAO;
+import erxdb.persistence.PersistenceWrapper;
 
 public class RegisterNewDoctor {
 
@@ -34,7 +34,7 @@ public class RegisterNewDoctor {
 			throw new UserNotFoundException(doctor.getUser().getUserId(), e);
 		}
 		
-		eRxDB.Doctor doc = new eRxDB.Doctor();
+		erxdb.Doctor doc = new erxdb.Doctor();
 		doc.setName(u.getName());
 		doc.setUsername(u.getUserId());
 		doc.setRegno(doctor.getRegistrationNumber());
@@ -54,13 +54,13 @@ public class RegisterNewDoctor {
 	
 	public void updateCertificate(Certificate cer) throws UserNotFoundException{
 		PersistenceWrapper.getEntitymanager().getTransaction().begin();
-		eRxDB.Doctor d = null;
+		erxdb.Doctor d = null;
 		try{
 			d = DoctorDAO.S_INSTANCE.findByUserId(doctor.getUser().getUserId());
 		}catch(NoResultException e){
 			throw new UserNotFoundException(doctor.getUser().getUserId(), e);
 		}
-		eRxDB.Certificate cert = new eRxDB.Certificate();
+		erxdb.Certificate cert = new erxdb.Certificate();
 		cert.setCertKey(ERxHelper.encrypt(cer.getUser().getUserId()));
 		cert.setSignImage(cer.getSignImage());
 		cert.setValue(cer.getCertificate());
@@ -68,6 +68,4 @@ public class RegisterNewDoctor {
 		CertificateDAO.S_INSTANCE.saveCertificate(cert);
 		PersistenceWrapper.getEntitymanager().getTransaction().commit();
 	}
-	
-	
 }

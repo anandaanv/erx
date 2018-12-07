@@ -11,7 +11,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class Medicine extends BaseBean {
 
-	private int id;
+	private long id;
 	private int applicantLicenseNo;
 	private Brand brandName;
 	private String medRegNo;
@@ -40,8 +40,8 @@ public class Medicine extends BaseBean {
 		return "Medicine [proprietaryName=" + proprietaryName + ", brand=" + brandName + "]";
 	}
 
-	public Medicine(int id, String proprietaryName, Brand brand, String dosageForm) {
-		super(id);
+	public Medicine(long id, String proprietaryName, Brand brand, String dosageForm) {
+		this.id = id;
 		this.proprietaryName = proprietaryName;
 		this.brandName = brand;
 		this.dosage_form = dosageForm;

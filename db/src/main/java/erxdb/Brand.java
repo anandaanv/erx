@@ -1,4 +1,4 @@
-package eRxDB;
+package erxdb;
 
 import java.io.Serializable;
 import java.util.List;

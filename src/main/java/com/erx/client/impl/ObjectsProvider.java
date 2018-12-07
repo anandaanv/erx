@@ -24,7 +24,7 @@ public class ObjectsProvider {
 	}
 
 	public static PrescriptionRow getPrescription(Medicine medicine, Set<Dose> doses, int numUnits) {
-		return new PrescriptionRow(medicine.getId(), medicine, doses, numUnits);
+		return PrescriptionRow.builder().medicine(medicine).doses(doses).numUnits(numUnits).build();
 	}
 
 }

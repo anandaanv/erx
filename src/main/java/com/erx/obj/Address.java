@@ -1,6 +1,5 @@
 package com.erx.obj;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -8,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Builder
 public class Address {
 	private int id;
 	private String name;

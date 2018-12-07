@@ -1,6 +1,5 @@
 package com.erx.cache;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +9,8 @@ import javax.persistence.Query;
 
 import com.erx.beans.Brand;
 import com.erx.beans.Medicine;
-import com.erx.beans.MedicineType;
-import com.erx.obj.Dose;
 
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.persistence.PersistenceWrapper;
 
 public enum MedicineCache {
 	// contains all available medicines.
@@ -23,8 +20,8 @@ public enum MedicineCache {
 		EntityManager entitymanager = PersistenceWrapper.getEntitymanager();
 		entitymanager.getTransaction().begin();
 		Query query = entitymanager.createQuery("select m from Medicine m");
-		List<eRxDB.Medicine> meds = query.getResultList();
-		for (eRxDB.Medicine medicine : meds) {
+		List<erxdb.Medicine> meds = query.getResultList();
+		for (erxdb.Medicine medicine : meds) {
 			if(medicine.getBrand() == null){
 				continue;
 			}
@@ -49,8 +46,10 @@ public enum MedicineCache {
 		return CacheHelper.getList(medicines, name, false);
 	}
 	
-	public Medicine adaptMedicine(eRxDB.Medicine med){
-		Medicine m = new Medicine(med.getId(), med.getProprietaryName(), new Brand(med.getBrand().getName()), med.getDosage_form());
+	public Medicine adaptMedicine(erxdb.Medicine med){
+		Medicine m = new Medicine(med.getId(), med.getProprietaryName(),
+				Brand.builder().brandName(med.getBrand().getName()).build(),
+				med.getDosage_form());
 		return m;
 		
 	}

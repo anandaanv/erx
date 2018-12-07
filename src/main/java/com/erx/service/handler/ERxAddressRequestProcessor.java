@@ -9,8 +9,8 @@ import com.erx.service.ifc.OrderStatus;
 import com.erx.service.input.ERxCreateOrderInput;
 import com.erx.service.input.ERxCreateOrderOutput;
 
-import eRxDB.Prescription;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.Prescription;
+import erxdb.persistence.PersistenceWrapper;
 
 public class ERxAddressRequestProcessor extends BaseERxOrderProcessor<ERxCreateOrderInput, ERxCreateOrderOutput> {
 

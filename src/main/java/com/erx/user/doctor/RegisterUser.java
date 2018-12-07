@@ -2,8 +2,8 @@ package com.erx.user.doctor;
 
 import com.erx.obj.User;
 
-import eRxDB.dao.UserDAO;
-import eRxDB.persistence.PersistenceWrapper;
+import erxdb.dao.UserDAO;
+import erxdb.persistence.PersistenceWrapper;
 
 public class RegisterUser {
 	private User user;
@@ -15,7 +15,7 @@ public class RegisterUser {
 	
 	public void processRegistration(){
 		PersistenceWrapper.getEntitymanager().getTransaction().begin();
-		eRxDB.User u = new eRxDB.User();
+		erxdb.User u = new erxdb.User();
 		u.setEmail(user.getEmail());
 		u.setEnabled(false);
 		u.setEncryptedPassword(user.getEncryptedPassword());
@@ -29,7 +29,7 @@ public class RegisterUser {
 	
 	public void completeRegistration(){
 		PersistenceWrapper.getEntitymanager().getTransaction().begin();
-		eRxDB.User u = UserDAO.S_INSTANCE.findByUserId(user.getUserId());
+		erxdb.User u = UserDAO.S_INSTANCE.findByUserId(user.getUserId());
 		u.setEnabled(true);
 		UserDAO.S_INSTANCE.saveUser(u);
 		PersistenceWrapper.getEntitymanager().getTransaction().commit();
